@@ -113,7 +113,7 @@ The project can also serve as a base for a **Power BI dashboard**, which I may c
 
 - `Hokej_LIT.ipynb` – main Jupyter Notebook with Python analysis and visualisations
 - `Statistiky.xlsx` – source Excel dataset prepared before Python analysis
-- `SQL scripts.pdf` – a collection of SQL queries I tested in PostgreSQL on datasets prepared in Python
+- `sql_querries.pdf` – a collection of SQL queries I tested in PostgreSQL on datasets prepared in Python
 - `pivot_graph_1.pdf` – an Excel pivot chart created from a pivot table
 - `README.md` – project description
 
