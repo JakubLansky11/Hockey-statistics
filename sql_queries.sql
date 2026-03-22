@@ -1,4 +1,4 @@
-# Vytvoření hlavní tabulky – základní statistiky zápasů
+-- Vytvoření hlavní tabulky – základní statistiky zápasů
 CREATE TABLE matches (
     season CHAR(64),
     played_matches INT,
@@ -22,7 +22,7 @@ CREATE TABLE matches (
     points_LIT INT
 );
 
-# Vytvoření další tabulky – střelci gólů 
+-- Vytvoření další tabulky – střelci gólů 
 CREATE TABLE match_scorers (
     match_number INT,
     opponent VARCHAR(100),
@@ -36,7 +36,7 @@ CREATE TABLE match_scorers (
     goal8_scorer VARCHAR(100)
 );
 
-# Připojení k jiné tabulce
+-- Připojení k jiné tabulce
 CREATE VIEW litvinov_matches_with_scorers AS
 select 
 	m.season,
@@ -79,7 +79,7 @@ FROM litvinov_matches_with_scorers
 WHERE opponent = 'Sparta' AND goal3_scorer IS NOT NULL;
 
 …………………………………………………………………………………
-# Vytvoření dlouhé tabulky
+-- Vytvoření dlouhé tabulky
 CREATE TABLE goals_long (
 match_number INT,
 opponent VARCHAR(100),
@@ -134,7 +134,7 @@ SELECT match_number, opponent, 8, goal8_scorer
 FROM match_scorers
 WHERE goal8_scorer IS NOT NULL;
 
-# Propojení s další tabulkou
+-- Propojení s další tabulkou
 CREATE VIEW long_table_matches AS
 SELECT
 
@@ -171,7 +171,7 @@ FROM long_table_matches
 GROUP BY opponent
 ORDER BY goals DESC	
 
-# Kdo nejčastěji dává první gól Litvínova v zápase
+-- Kdo nejčastěji dává první gól Litvínova v zápase
 SELECT
 g.scorer,
 COUNT(*) AS first_goals
@@ -183,7 +183,7 @@ AND g.goal_number = 1
 GROUP BY g.scorer
 ORDER BY first_goals DESC, g.scorer;
 
-# Kdo nejčastěji otevírá skóre proti jednotlivým soupeřům
+-- Kdo nejčastěji otevírá skóre proti jednotlivým soupeřům
 SELECT *
 FROM (
     SELECT
@@ -204,7 +204,7 @@ FROM (
 WHERE rnk = 1
 ORDER BY opponent;
 
-# Nejproduktivnější zápas Litvínova
+-- Nejproduktivnější zápas Litvínova
 SELECT
     m.played_matches,
     m.opponent,
@@ -217,7 +217,7 @@ GROUP BY m.played_matches, m.opponent
 ORDER BY goals DESC
 LIMIT 2;
 
-# Který hráč skóruje proti nejvíce různým týmům
+-- Který hráč skóruje proti nejvíce různým týmům
 SELECT
 g.scorer,
 COUNT(DISTINCT m.opponent) AS teams_scored_against
@@ -228,7 +228,7 @@ WHERE m.season = 'Sezóna 25/26'
 GROUP BY g.scorer
 ORDER BY teams_scored_against DESC;
 
-# Kdo dává nejvíc gólů doma vs venku
+-- Kdo dává nejvíc gólů doma vs venku
 SELECT
     m.home_away,
     g.scorer,
@@ -240,7 +240,7 @@ WHERE m.season = 'Sezóna 25/26'
 GROUP BY m.home_away, g.scorer
 ORDER BY m.home_away, goals DESC;
 
-# Pořadí gólů každého hráče proti jednotlivým soupeřům
+-- Pořadí gólů každého hráče proti jednotlivým soupeřům
 SELECT
     opponent,
     scorer,
@@ -252,7 +252,8 @@ SELECT
 FROM long_table_matches
 where scorer is not null
 GROUP BY opponent, scorer;	
-# Pořadí sezón podle celkového počtu výher
+
+-- Pořadí sezón podle celkového počtu výher
 select 
 	season,
 	count(*) as wins_count,
@@ -262,7 +263,7 @@ where result in ('V', 'VP')
 group by season
 ORDER BY winning_rank;
 
-# Srovnání sezón dle počtu všech výher v sezóně (včetně playoff aj.).
+-- Srovnání sezón dle počtu všech výher v sezóně (včetně playoff aj.).
 SELECT 
     season,
     COUNT(*) AS wins_count,
@@ -272,7 +273,7 @@ WHERE result IN ('V', 'VP')
 GROUP BY season
 ORDER BY winning_rank;
 
-# Srovnání sezón dle počtu všech výher v základní části
+-- Srovnání sezón dle počtu všech výher v základní části
 SELECT 
     season,
     COUNT(*) AS wins_count,
@@ -282,7 +283,7 @@ WHERE result = 'V'  and round not in ('baráž', 'playout', 'předkolo', 'čtvrt
 GROUP BY season
 ORDER BY winning_rank;
 
-# Srovnání sezón dle počtu výher v základní hrací době v základní části
+-- Srovnání sezón dle počtu výher v základní hrací době v základní části
 SELECT 
     season,
     COUNT(*) AS wins_count,
@@ -291,7 +292,8 @@ FROM matches
 WHERE result = 'V'  and round not in ('baráž', 'playout', 'předkolo', 'čtvrtfinále', 'semifinále', 'finále')
 GROUP BY season
 ORDER BY winning_rank;
-# Srovnání sezón dle počtu výher v základní hrací době v základní části a rozdělí tabulku na doma x venku
+
+-- Srovnání sezón dle počtu výher v základní hrací době v základní části a rozdělí tabulku na doma x venku
 SELECT 
     season,
     home_away,
@@ -306,8 +308,7 @@ WHERE result = 'V'
 GROUP BY season, home_away
 ORDER BY home_away, winning_rank;
 
-
-# Srovnání sezón dle počtu proher v základní hrací době v základní části
+-- Srovnání sezón dle počtu proher v základní hrací době v základní části
 SELECT 
     season,
     COUNT(*) AS losses_count,
@@ -317,7 +318,7 @@ WHERE result = 'P'  and round not in ('baráž', 'playout', 'předkolo', 'čtvrt
 GROUP BY season
 ORDER BY loosing_rank;
 
-# Srovnání sezón dle počtu proher v základní hrací době v základní části a rozdělí tabulku na doma x venku
+-- Srovnání sezón dle počtu proher v základní hrací době v základní části a rozdělí tabulku na doma x venku
 SELECT 
     season,
     home_away,
