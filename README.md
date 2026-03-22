@@ -143,7 +143,7 @@ The project can also serve as a base for a **Power BI dashboard**, which I may c
 An important part of the project was preparing structured outputs for database work.
 
 In Python, I created **two output datasets** that were later used in **PostgreSQL**.  
-The file `SQL scripts.pdf` contains examples of SQL queries that I tested on these prepared datasets.
+The file `sql_querries.pdf` contains examples of SQL queries that I tested on these prepared datasets.
 
 This part of the project helped me connect:
 - data preparation in Excel / Power Query
@@ -162,11 +162,8 @@ This shows another way of presenting the analyzed data outside Python and demons
 
 ## Future improvements
 
-- refactor repeated code into reusable functions
-- split the notebook into clearer analytical sections
 - add more comments and explanations inside the notebook
-- include SQL scripts directly as `.sql` files
-- add screenshots of key charts to the README
+- more SQL scripts
 - create a Power BI dashboard as a follow-up project extension
 
 ---
